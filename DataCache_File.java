@@ -6,7 +6,8 @@ import diaDat.DiaDat_ChannelBase;
 import diaDat.DiaDat_DataFileBase;
 import diaDat.DiaDat_Direction;
 import diaDat.DiaDat_File;
-import util.Util;
+import diaDat.DataTypesEnum;
+import utils.Util;
 
 public class DataCache_File
 {
@@ -25,16 +26,16 @@ public class DataCache_File
         
     }
 
-    public DataCache_ChannelBase getChannel(String chName)
+    public DataCache_ChannelBase getChannel(String chName) throws Exception
     {
         DiaDat_ChannelBase chBase = file.getChannel(chName);
         switch (chBase.getType())
         {
+            case e_DataType_u8:
+                return new DataCache_Channel_U8(this, chName);
             default:
                 throw new Exception(Util.sprintf("DataCache_File.getChannel - not implemented channel type %s in file %s!", chName, file.getName()));
         }
-        DataCache_ChannelBase ch = new DataCache_ChannelBase(chBase);
-        return ch;
     }
 
     DiaDat_File file;
