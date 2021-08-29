@@ -8,12 +8,33 @@ import diaDat.DiaDat_Direction;
 import diaDat.DiaDat_File;
 import diaDat.DataTypesEnum;
 import utils.Util;
+import utils.dbg;
 
 public class DataCache_File
 {
-    public DataCache_File(DiaDat_File _file) throws Exception
+    public DataCache_File(String _filename)
+    {
+        filename = _filename;
+        try
+        {
+            file = new DiaDat_File(filename);
+            load();
+        }catch (Exception e)
+        {
+            dbg.dprintf(1, "Error loading file %s (e=%s)!", filename, e.toString());
+            state = DataCache_State.DataCache_Error;
+        }
+    }
+    String filename; // it's required for error state
+
+    DataCache_File(DiaDat_File _file) throws Exception
     {
         file = _file;
+        load();
+    }
+
+    void load() throws Exception
+    {
         if (file.getDir() != DiaDat_Direction.e_DiaDat_Dir_Read)
         {
             file = null;
@@ -38,6 +59,25 @@ public class DataCache_File
         }
     }
 
+    public String getStateString() {
+        switch (state)
+        {
+            case DataCache_Loading:
+                return "Loading file " + filename;
+            case DataCache_Ready:
+                return "File " + filename + " is loaded";
+            case DataCache_Error:
+                return "Error loading file " + filename;
+            default:
+                return "Unknown state of file " + filename;
+        }
+    }
+
+    public DataCache_State getState() {
+        return state;
+    }
+
+    DataCache_State state = DataCache_State.DataCache_Loading;
     DiaDat_File file;
     TreeMap<String, DataCache_ChannelBase> dataFiles = new TreeMap<String, DataCache_ChannelBase>();
 }
