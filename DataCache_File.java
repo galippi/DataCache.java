@@ -81,7 +81,7 @@ public class DataCache_File
     }
 
     public int getChannelNumber() {
-        return file.getChannelNumber() + 1;
+        return channels.size();
     }
 
     public DiaDat_ChannelBase getRawChannel(String chName) {
