@@ -47,18 +47,28 @@ public class DataCache_File
         {
             addChannel(chBase);
         }
+        state = DataCache_State.DataCache_Ready;
     }
 
     public DataCache_ChannelBase addChannel(DiaDat_ChannelBase chBase) throws Exception
     {
         DataCache_ChannelBase ch;
-        switch (chBase.getType())
+        if (chBase.isExplicit())
         {
-            case e_DataType_u8:
-                ch = new DataCache_Channel_U8(this, chBase);
-                break;
-            default:
-                throw new Exception(Util.sprintf("DataCache_File.getChannel - not implemented channel type %s in file %s!", chBase.getName(), file.getName()));
+            switch (chBase.getType())
+            {
+                case e_DataType_u8:
+                    ch = new DataCache_Channel_U8(this, chBase);
+                    break;
+                case e_DataType_Real64:
+                    ch = new DataCache_Channel_R64(this, chBase);
+                    break;
+                default:
+                    throw new Exception(Util.sprintf("DataCache_File.getChannel - not implemented channel type %s in file %s!", chBase.getName(), file.getName()));
+            }
+        }else
+        {
+            ch = new DataCache_Channel_Implicit(this, chBase);
         }
         channels.add(ch);
         channelsTree.put(ch.getName(), ch);
