@@ -1,4 +1,4 @@
-package DataCache;
+package dataCache;
 
 abstract public class DataCache_ChannelBase
 {
@@ -9,4 +9,5 @@ abstract public class DataCache_ChannelBase
     abstract public int get(int idx);
     abstract public int getDouble(int idx);
     DataCache_File parent;
+    public abstract String getName();
 }

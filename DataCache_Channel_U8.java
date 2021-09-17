@@ -1,4 +1,4 @@
-package DataCache;
+package dataCache;
 
 import diaDat.DiaDat_ChannelBase;
 
@@ -8,6 +8,13 @@ public class DataCache_Channel_U8 extends DataCache_ChannelBase
     {
         super(_parent);
         //DiaDat_ChannelBase chTime = parent.getChannel(chName);
+        ch = parent.getRawChannel(chName);
+    }
+
+    public DataCache_Channel_U8(DataCache_File _parent, DiaDat_ChannelBase chBase)
+    {
+        super(_parent);
+        ch =chBase;
     }
 
     @Override
@@ -23,5 +30,13 @@ public class DataCache_Channel_U8 extends DataCache_ChannelBase
     {
         // TODO Auto-generated method stub
         return 0;
+    }
+
+    DiaDat_ChannelBase ch;
+
+    @Override
+    public String getName() {
+        // TODO Auto-generated method stub
+        return ch.getName();
     }
 }
