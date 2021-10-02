@@ -6,7 +6,7 @@ import java.util.Vector;
 import diaDat.DiaDat_ChannelBase;
 import diaDat.DiaDat_Direction;
 import diaDat.DiaDat_File;
-import utils.Util;
+import utils.Sprintf;
 import utils.dbg;
 
 public class DataCache_File
@@ -37,7 +37,7 @@ public class DataCache_File
         if (file.getDir() != DiaDat_Direction.e_DiaDat_Dir_Read)
         {
             file = null;
-            throw new Exception(Util.sprintf("DataCache_File.ctor - invalid file direction of file %s!", file.getName()));
+            throw new Exception(Sprintf.sprintf("DataCache_File.ctor - invalid file direction of file %s!", file.getName()));
         }
         pointIndex = new DataCache_PointIndex(this, "__pointIndex");
         channels.add(pointIndex);
@@ -64,7 +64,7 @@ public class DataCache_File
                     ch = new DataCache_Channel_R64(this, chBase);
                     break;
                 default:
-                    throw new Exception(Util.sprintf("DataCache_File.getChannel - not implemented channel type %s in file %s!", chBase.getName(), file.getName()));
+                    throw new Exception(Sprintf.sprintf("DataCache_File.getChannel - not implemented channel type %s in file %s!", chBase.getName(), file.getName()));
             }
         }else
         {
