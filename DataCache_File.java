@@ -41,6 +41,7 @@ public class DataCache_File
         }
         pointIndex = new DataCache_PointIndex(this, "__pointIndex");
         channels.add(pointIndex);
+        channelsTree.put(pointIndex.getName(), pointIndex);
         file.getChannelInit();
         DiaDat_ChannelBase chBase;
         while((chBase = file.getChannelNext()) != null)
