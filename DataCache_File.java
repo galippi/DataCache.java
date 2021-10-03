@@ -102,6 +102,10 @@ public class DataCache_File
         return channelsTree.get(chName);
     }
 
+    public DataCache_ChannelBase getIndexChannel() {
+        return channels.get(0);
+    }
+
     public String getStateString() {
         switch (state)
         {
