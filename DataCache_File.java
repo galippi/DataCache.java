@@ -15,7 +15,23 @@ import utils.dbg;
 
 public class DataCache_File
 {
+    public DataCache_File()
+    {
+        
+    }
     public DataCache_File(String _filename)
+    {
+        open(_filename);
+    }
+    String filename; // it's required for error state
+
+    DataCache_File(DiaDat_File _file) throws Exception
+    {
+        file = _file;
+        load();
+    }
+
+    public void open(String _filename)
     {
         filename = _filename;
         try
@@ -27,13 +43,6 @@ public class DataCache_File
             dbg.dprintf(1, "Error loading file %s (e=%s)!\n", filename, e.toString());
             state = DataCache_State.DataCache_Error;
         }
-    }
-    String filename; // it's required for error state
-
-    DataCache_File(DiaDat_File _file) throws Exception
-    {
-        file = _file;
-        load();
     }
 
     void load() throws Exception
@@ -53,6 +62,7 @@ public class DataCache_File
             addChannel(chBase);
         }
         state = DataCache_State.DataCache_Ready;
+        executeActionListener();
     }
 
     public DataCache_ChannelBase addChannel(DiaDat_ChannelBase chBase) throws Exception
@@ -113,6 +123,8 @@ public class DataCache_File
     public String getStateString() {
         switch (state)
         {
+            case DataCache_Init:
+                return "DataCache is initialized";
             case DataCache_Loading:
                 return "Loading file " + filename;
             case DataCache_Ready:
@@ -134,8 +146,9 @@ public class DataCache_File
       listeners.add(l);
     }
 
-    public void executeActionListener(ActionEvent e) {
+    void executeActionListener() {
         for (ActionListener l : listeners) {
+            ActionEvent e = new ActionEvent (this, 0, "file is loaded");
             l.actionPerformed(e);
           }
       }
