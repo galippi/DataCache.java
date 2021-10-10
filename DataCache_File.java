@@ -1,5 +1,9 @@
 package dataCache;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
 import java.util.Vector;
 
@@ -122,6 +126,22 @@ public class DataCache_File
 
     public DataCache_State getState() {
         return state;
+    }
+
+    private final ArrayList<ActionListener> listeners = new ArrayList<ActionListener>();
+
+    public void addActionListener(ActionListener l) {
+      listeners.add(l);
+    }
+
+    public void executeActionListener(ActionEvent e) {
+        for (ActionListener l : listeners) {
+            l.actionPerformed(e);
+          }
+      }
+
+    public String getName() {
+        return file.getName();
     }
 
     DataCache_State state = DataCache_State.DataCache_Loading;
