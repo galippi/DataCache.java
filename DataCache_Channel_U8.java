@@ -27,7 +27,7 @@ public class DataCache_Channel_U8 extends DataCache_ChannelBase
     public int get(int idx)
     {
         //parent.getRecord(idx);
-        return (int)(dataBuffer[idx] & 0xFF);
+        return (int)((int)(dataBuffer[idx] & 0xFF) * factor + offset);
     }
 
     @Override

@@ -8,6 +8,7 @@ public class DataCache_Channel_R64 extends DataCache_ChannelBase
     {
         super(_parent);
         ch =chBase;
+        dataBuffer = new double[ch.getLength()];
     }
 
     @Override
@@ -17,23 +18,22 @@ public class DataCache_Channel_R64 extends DataCache_ChannelBase
     }
 
     @Override
-    public int get(int idx)
+    public int get(int idx) throws Exception
     {
-        parent.getRecord(idx);
-        // TODO Auto-generated method stub
-        return 0;
+        throw new Exception("DataCache_Channel_R64.get - not supported operation!");
     }
 
     @Override
     public double getDouble(int idx) throws Exception
     {
-        throw new Exception("DataCache_Channel_R64.get - not yet implemented!");
+        return dataBuffer[idx];
     }
 
     @Override
-    protected void set(int i) throws Exception {
-        throw new Exception("DataCache_Channel_R64.set - not yet implemented!");
+    protected void set(int idx) throws Exception {
+        dataBuffer[idx] = ch.getValueDouble();
     }
 
     DiaDat_ChannelBase ch;
+    double[] dataBuffer;
 }
