@@ -3,7 +3,6 @@ package dataCache;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.TreeMap;
 import java.util.Vector;
 
@@ -162,4 +161,8 @@ public class DataCache_File
     TreeMap<String, DataCache_ChannelBase> channelsTree = new TreeMap<String, DataCache_ChannelBase>();
     Vector<DataCache_ChannelBase> channels = new Vector();
     DataCache_ChannelBase pointIndex;
+
+    public int getLength() throws Exception {
+        return file.getLength();
+    }
 }
