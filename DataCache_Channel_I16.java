@@ -16,9 +16,11 @@ public class DataCache_Channel_I16 extends DataCache_ChannelBase {
     @Override
     public int get(int idx)
     {
-        //parent.getRecord(idx);
-        return   (int)(dataBuffer[idx * 2    ] & 0xFF) + 
-               (((int)(dataBuffer[idx * 2 + 1] & 0xFF)) * 256);
+        int val =   (int)(dataBuffer[idx * 2    ] & 0xFF) + 
+                  (((int)(dataBuffer[idx * 2 + 1] & 0xFF)) * 256);
+        if (val >= 32768)
+            val = val - 65536;
+        return val;
     }
 
     @Override
@@ -37,7 +39,9 @@ public class DataCache_Channel_I16 extends DataCache_ChannelBase {
     @Override
     protected void set(int idx) throws Exception {
         int val = ch.getValueRaw();
-        dataBuffer[idx * 2] = (byte)(val % 256);
+        if (val < 0)
+            val = val + 65536;
+        dataBuffer[idx * 2] = (byte)(val & 255);
         dataBuffer[idx * 2 + 1] = (byte)(val / 256);
     }
 
