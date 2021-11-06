@@ -101,6 +101,9 @@ public class DataCache_File
                 case e_DataType_Real64:
                     ch = new DataCache_Channel_R64(this, chBase);
                     break;
+                case e_DataType_Real32:
+                    ch = new DataCache_Channel_R32(this, chBase);
+                    break;
                 default:
                     throw new Exception(Sprintf.sprintf("DataCache_File.getChannel - not implemented channel type %s in file %s!", chBase.getName(), file.getName()));
             }

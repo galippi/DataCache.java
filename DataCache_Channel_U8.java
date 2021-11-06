@@ -34,7 +34,7 @@ public class DataCache_Channel_U8 extends DataCache_ChannelBase
     public double getDouble(int idx)
     {
         // TODO Auto-generated method stub
-        return get(idx) * factor + offset;
+        return get(idx);
     }
 
     DiaDat_ChannelBase ch;
