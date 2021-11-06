@@ -17,14 +17,18 @@ public class DataCache_Channel_Implicit extends DataCache_ChannelBase
     }
 
     @Override
-    public int getDouble(int idx) {
-        // TODO Auto-generated method stub
-        return 0;
+    public double getDouble(int idx) {
+        return idx * ch.getFactor() + ch.getOffset();
     }
 
     @Override
     public String getName() {
         return ch.getName();
+    }
+
+    @Override
+    protected void set(int i) throws Exception {
+        throw new Exception("DataCache_Channel_Implicit.set - not yet implemented!");
     }
 
     DiaDat_ChannelBase ch;

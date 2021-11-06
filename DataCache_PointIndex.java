@@ -15,9 +15,9 @@ public class DataCache_PointIndex extends DataCache_ChannelBase
     }
 
     @Override
-    public int getDouble(int idx)
+    public double getDouble(int idx)
     {
-        return get(idx);
+        return idx;
     }
 
     @Override
@@ -26,4 +26,9 @@ public class DataCache_PointIndex extends DataCache_ChannelBase
     }
 
     String chName;
+
+    @Override
+    protected void set(int i) throws Exception {
+        throw new Exception("DataCache_PointIndex.set - not yet implemented!");
+    }
 }

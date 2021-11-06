@@ -7,7 +7,8 @@ abstract public class DataCache_ChannelBase
         parent = _parent;
     }
     abstract public int get(int idx);
-    abstract public int getDouble(int idx);
+    abstract public double getDouble(int idx) throws Exception;
     DataCache_File parent;
     public abstract String getName();
+    protected abstract void set(int i) throws Exception;
 }

@@ -56,10 +56,22 @@ public class DataCache_File
         channelsTree.put(pointIndex.getName(), pointIndex);
         file.getChannelInit();
         DiaDat_ChannelBase chBase;
+        Vector<DataCache_ChannelBase> channelsToBeCached = new Vector<DataCache_ChannelBase>();
         while((chBase = file.getChannelNext()) != null)
         {
-            addChannel(chBase);
+            DataCache_ChannelBase ch = addChannel(chBase);
+            if (chBase.isExplicit())
+                channelsToBeCached.add(ch);
         }
+        int i = 0;
+        do
+        {
+            for(DataCache_ChannelBase ch: channelsToBeCached)
+            {
+                ch.set(i);
+            }
+            i++;
+        }while(file.stepIsOk());
         state = DataCache_State.DataCache_Ready;
         executeActionListener();
     }

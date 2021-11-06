@@ -25,10 +25,14 @@ public class DataCache_Channel_R64 extends DataCache_ChannelBase
     }
 
     @Override
-    public int getDouble(int idx)
+    public double getDouble(int idx) throws Exception
     {
-        // TODO Auto-generated method stub
-        return 0;
+        throw new Exception("DataCache_Channel_R64.get - not yet implemented!");
+    }
+
+    @Override
+    protected void set(int i) throws Exception {
+        throw new Exception("DataCache_Channel_R64.set - not yet implemented!");
     }
 
     DiaDat_ChannelBase ch;
