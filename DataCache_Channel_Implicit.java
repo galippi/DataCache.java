@@ -11,14 +11,17 @@ public class DataCache_Channel_Implicit extends DataCache_ChannelBase
     }
 
     @Override
-    public int get(int idx) {
-        // TODO Auto-generated method stub
-        return 0;
+    public int get(int idx) throws Exception {
+        throw new Exception("DataCache_Channel_Implicit.get - not supported operation!");
     }
 
     @Override
     public double getDouble(int idx) {
         return idx * ch.getFactor() + ch.getOffset();
+    }
+
+    public int getRaw(int idx) throws Exception {
+        return idx;
     }
 
     @Override
