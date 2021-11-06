@@ -86,6 +86,9 @@ public class DataCache_File
                 case e_DataType_u8:
                     ch = new DataCache_Channel_U8(this, chBase);
                     break;
+                case e_DataType_i16:
+                    ch = new DataCache_Channel_I16(this, chBase);
+                    break;
                 case e_DataType_i32:
                     ch = new DataCache_Channel_I32(this, chBase);
                     break;
