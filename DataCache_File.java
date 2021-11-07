@@ -84,7 +84,12 @@ public class DataCache_File
             switch (chBase.getType())
             {
                 case e_DataType_u8:
-                    ch = new DataCache_Channel_U8(this, chBase);
+                    if (chBase.isPureInt())
+                        ch = new DataCache_Channel_U8_PureInt(this, chBase);
+                    else
+                        ch = new DataCache_Channel_U8(this, chBase);
+                    //ch = new DataCache_ChannelBaseInt(this, chBase);
+                    //ch = new DataCache_ChannelBasePureInt(this, chBase);
                     break;
                 case e_DataType_i16:
                     ch = new DataCache_Channel_I16(this, chBase);
