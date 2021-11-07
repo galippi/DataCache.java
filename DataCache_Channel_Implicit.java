@@ -34,5 +34,25 @@ public class DataCache_Channel_Implicit extends DataCache_ChannelBase
         throw new Exception("DataCache_Channel_Implicit.set - not yet implemented!");
     }
 
+    @Override
+    public int getRawMin() throws Exception {
+        return 0;
+    }
+
+    @Override
+    public int getRawMax() throws Exception {
+        return ch.getLength() - 1;
+    }
+
+    @Override
+    public double getDoubleMin() throws Exception {
+        return getRawMin() * ch.getFactor() + ch.getOffset();
+    }
+
+    @Override
+    public double getDoubleMax() throws Exception {
+        return getRawMax() * ch.getFactor() + ch.getOffset();
+    }
+
     DiaDat_ChannelBase ch;
 }

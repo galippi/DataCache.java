@@ -15,4 +15,17 @@ abstract public class DataCache_ChannelBase
     public int getRaw(int i) throws Exception {
         throw new Exception("DataCache_ChannelBase.getRaw - not supported operation!");
     }
+
+    public int getRawMin() throws Exception {
+        throw new Exception("DataCache_ChannelBase.getRawMin - not supported operation!");
+    }
+    public int getRawMax() throws Exception {
+        throw new Exception("DataCache_ChannelBase.getRawMax - not supported operation!");
+    }
+    public double getDoubleMin() throws Exception {
+        throw new Exception("DataCache_ChannelBase.getDoubleMin - not supported operation!");
+    }
+    public double getDoubleMax() throws Exception {
+        throw new Exception("DataCache_ChannelBase.getDoubleMax - not supported operation!");
+    }
 }

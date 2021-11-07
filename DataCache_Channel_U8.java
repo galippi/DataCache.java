@@ -21,6 +21,8 @@ public class DataCache_Channel_U8 extends DataCache_ChannelBase
         dataBuffer = new Byte[ch.getLength()];
         factor = ch.getFactor();
         offset = ch.getOffset();
+        rawMin = 256;
+        rawMax = -1;
     }
 
     @Override
@@ -48,7 +50,34 @@ public class DataCache_Channel_U8 extends DataCache_ChannelBase
 
     @Override
     protected void set(int idx) throws Exception {
-        dataBuffer[idx] = (byte)ch.getValueRaw();
+        int raw = ch.getValueRaw();
+        if (raw < rawMin)
+            rawMin = raw;
+        if (raw > rawMax)
+            rawMax = raw;
+        dataBuffer[idx] = (byte)raw;
     }
+
+    @Override
+    public int getRawMin() throws Exception {
+        return rawMin;
+    }
+
+    @Override
+    public int getRawMax() throws Exception {
+        return rawMax;
+    }
+
+    @Override
+    public double getDoubleMin() throws Exception {
+        return getRawMin() * ch.getFactor() + ch.getOffset();
+    }
+
+    @Override
+    public double getDoubleMax() throws Exception {
+        return getRawMax() * ch.getFactor() + ch.getOffset();
+    }
+
+    int rawMin, rawMax;
     double factor, offset;
 }
