@@ -4,16 +4,6 @@ import diaDat.DiaDat_ChannelBase;
 
 public class DataCache_Channel_U8 extends DataCache_ChannelBase
 {
-    public DataCache_Channel_U8(DataCache_File _parent, String chName)
-    {
-        super(_parent);
-        //DiaDat_ChannelBase chTime = parent.getChannel(chName);
-        ch = parent.getRawChannel(chName);
-        dataBuffer = new Byte[ch.getLength()];
-        factor = ch.getFactor();
-        offset = ch.getOffset();
-    }
-
     public DataCache_Channel_U8(DataCache_File _parent, DiaDat_ChannelBase chBase)
     {
         super(_parent);
