@@ -197,4 +197,7 @@ public class DataCache_File
     public int getLength() throws Exception {
         return file.getLength();
     }
+    public boolean isReady() {
+        return state == DataCache_State.DataCache_Ready;
+    }
 }
