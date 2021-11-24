@@ -28,4 +28,21 @@ abstract public class DataCache_ChannelBase
     public double getDoubleMax() throws Exception {
         throw new Exception("DataCache_ChannelBase.getDoubleMax - not supported operation!");
     }
+
+    public int getRawPartialMin(int idxLow, int idxHigh) throws Exception {
+        //throw new Exception("DataCache_ChannelBase.getRawMin - not supported operation!");
+        return getRawMin();
+    }
+    public int getRawPartialMax(int idxLow, int idxHigh) throws Exception {
+        //throw new Exception("DataCache_ChannelBase.getRawMax - not supported operation!");
+        return getRawMax();
+    }
+    public double getDoublePartialMin(int idxLow, int idxHigh) throws Exception {
+        //throw new Exception("DataCache_ChannelBase.getDoubleMin - not supported operation!");
+        return getDoubleMin();
+    }
+    public double getDoublePartialMax(int idxLow, int idxHigh) throws Exception {
+        //throw new Exception("DataCache_ChannelBase.getDoubleMax - not supported operation!");
+        return getDoubleMax();
+    }
 }
