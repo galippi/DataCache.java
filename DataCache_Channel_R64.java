@@ -31,9 +31,26 @@ public class DataCache_Channel_R64 extends DataCache_ChannelBase
 
     @Override
     protected void set(int idx) throws Exception {
-        dataBuffer[idx] = ch.getValueDouble();
+        double val = ch.getValueDouble();
+        if (val < valMin)
+            valMin = val;
+        if (val > valMax)
+            valMax = val;
+        dataBuffer[idx] = val;
+    }
+
+    @Override
+    public double getDoubleMin() throws Exception {
+        return valMin;
+    }
+
+    @Override
+    public double getDoubleMax() throws Exception {
+        return valMax;
     }
 
     DiaDat_ChannelBase ch;
     double[] dataBuffer;
+    double valMin = 1e99;
+    double valMax = -1e99;
 }

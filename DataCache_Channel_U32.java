@@ -30,10 +30,36 @@ public class DataCache_Channel_U32 extends DataCache_ChannelBase {
 
     @Override
     protected void set(int idx) throws Exception {
-        dataBuffer[idx] = ch.getValueRaw();
+        long raw = ch.getValueRaw();
+        if (raw < rawMin)
+            rawMin = raw;
+        if (raw > rawMax)
+            rawMax = raw;
+        dataBuffer[idx] = (int)raw;
+    }
+
+    @Override
+    public int getRawMin() throws Exception {
+        return (int)rawMin;
+    }
+
+    @Override
+    public int getRawMax() throws Exception {
+        return (int)rawMax;
+    }
+
+    @Override
+    public double getDoubleMin() throws Exception {
+        return getRawMin() * ch.getFactor() + ch.getOffset();
+    }
+
+    @Override
+    public double getDoubleMax() throws Exception {
+        return getRawMax() * ch.getFactor() + ch.getOffset();
     }
 
     DiaDat_ChannelBase ch;
     int[] dataBuffer;
     double factor, offset;
+    long rawMin, rawMax;
 }
