@@ -40,6 +40,10 @@ abstract public class DataCache_ChannelBasePureInt extends DataCache_ChannelBase
         return ch.getName();
     }
 
+    public String getUnit() {
+        return ch.getUnit();
+    }
+
     DiaDat_ChannelBase ch;
     int rawMin = 0x7FFFFFFF, rawMax = -0x80000000;
 }

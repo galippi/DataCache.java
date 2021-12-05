@@ -54,5 +54,9 @@ public class DataCache_Channel_Implicit extends DataCache_ChannelBase
         return getRawMax() * ch.getFactor() + ch.getOffset();
     }
 
+    public String getUnit() {
+        return ch.getUnit();
+    }
+
     DiaDat_ChannelBase ch;
 }
