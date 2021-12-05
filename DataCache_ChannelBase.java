@@ -45,4 +45,7 @@ abstract public class DataCache_ChannelBase
         //throw new Exception("DataCache_ChannelBase.getDoubleMax - not supported operation!");
         return getDoubleMax();
     }
+    public String getUnit() {
+        return "";
+    }
 }
