@@ -2,12 +2,11 @@ package dataCache;
 
 import diaDat.DiaDat_ChannelBase;
 
-public class DataCache_Channel_I16 extends DataCache_ChannelBaseInt {
+public class DataCache_Channel_I16_PureInt extends DataCache_ChannelBasePureInt {
 
-    public DataCache_Channel_I16(DataCache_File _parent, DiaDat_ChannelBase chBase)
-    {
+    DataCache_Channel_I16_PureInt(DataCache_File _parent, DiaDat_ChannelBase chBase) {
         super(_parent, chBase);
-        dataBuffer = new Byte[ch.getLength() * 2];
+        dataBuffer = new Byte[ch.getLength()];
     }
 
     @Override
@@ -23,14 +22,11 @@ public class DataCache_Channel_I16 extends DataCache_ChannelBaseInt {
     @Override
     protected void set(int idx) throws Exception {
         int raw = ch.getValueRaw();
-        if (raw < 0)
-            raw = raw + 65536;
         if (raw < rawMin)
             rawMin = raw;
         if (raw > rawMax)
             rawMax = raw;
-        dataBuffer[idx * 2] = (byte)(raw & 255);
-        dataBuffer[idx * 2 + 1] = (byte)(raw / 256);
+        dataBuffer[idx] = (byte)raw;
     }
 
     Byte[] dataBuffer;

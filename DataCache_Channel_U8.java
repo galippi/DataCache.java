@@ -2,15 +2,12 @@ package dataCache;
 
 import diaDat.DiaDat_ChannelBase;
 
-public class DataCache_Channel_U8 extends DataCache_ChannelBase
+public class DataCache_Channel_U8 extends DataCache_ChannelBaseInt
 {
     public DataCache_Channel_U8(DataCache_File _parent, DiaDat_ChannelBase chBase)
     {
-        super(_parent);
-        ch =chBase;
+        super(_parent, chBase);
         dataBuffer = new Byte[ch.getLength()];
-        factor = ch.getFactor();
-        offset = ch.getOffset();
         rawMin = 256;
         rawMax = -1;
     }
@@ -19,24 +16,10 @@ public class DataCache_Channel_U8 extends DataCache_ChannelBase
     public int get(int idx)
     {
         //parent.getRecord(idx);
-        return (int)((int)(dataBuffer[idx] & 0xFF) * factor + offset);
+        return (int)(dataBuffer[idx] & 0xFF);
     }
 
-    @Override
-    public double getDouble(int idx)
-    {
-        // TODO Auto-generated method stub
-        return get(idx);
-    }
-
-    DiaDat_ChannelBase ch;
     Byte[] dataBuffer;
-
-    @Override
-    public String getName() {
-        // TODO Auto-generated method stub
-        return ch.getName();
-    }
 
     @Override
     protected void set(int idx) throws Exception {
@@ -48,15 +31,6 @@ public class DataCache_Channel_U8 extends DataCache_ChannelBase
         dataBuffer[idx] = (byte)raw;
     }
 
-    @Override
-    public int getRawMin() throws Exception {
-        return rawMin;
-    }
-
-    @Override
-    public int getRawMax() throws Exception {
-        return rawMax;
-    }
 
     @Override
     public double getDoubleMin() throws Exception {
@@ -67,7 +41,4 @@ public class DataCache_Channel_U8 extends DataCache_ChannelBase
     public double getDoubleMax() throws Exception {
         return getRawMax() * ch.getFactor() + ch.getOffset();
     }
-
-    int rawMin, rawMax;
-    double factor, offset;
 }
