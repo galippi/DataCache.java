@@ -4,7 +4,7 @@ import diaDat.DiaDat_ChannelBase;
 
 public class DataCache_Channel_I16 extends DataCache_ChannelBaseInt {
 
-    public DataCache_Channel_I16(DataCache_File _parent, DiaDat_ChannelBase chBase)
+    public DataCache_Channel_I16(DataCache_FileBase _parent, DiaDat_ChannelBase chBase)
     {
         super(_parent, chBase);
         dataBuffer = new Byte[ch.getLength() * 2];

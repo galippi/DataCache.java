@@ -12,19 +12,19 @@ import diaDat.DiaDat_File;
 import utils.Sprintf;
 import utils.dbg;
 
-public class DataCache_File
+public class DataCache_FileDiaDat extends DataCache_FileBase
 {
-    public DataCache_File()
+    public DataCache_FileDiaDat()
     {
         
     }
-    public DataCache_File(String _filename)
+    public DataCache_FileDiaDat(String _filename)
     {
         open(_filename);
     }
     String filename; // it's required for error state
 
-    DataCache_File(DiaDat_File _file) throws Exception
+    DataCache_FileDiaDat(DiaDat_File _file) throws Exception
     {
         file = _file;
         load();

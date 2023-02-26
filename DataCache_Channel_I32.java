@@ -4,7 +4,7 @@ import diaDat.DiaDat_ChannelBase;
 
 public class DataCache_Channel_I32 extends DataCache_ChannelBase {
 
-    DataCache_Channel_I32(DataCache_File _parent, DiaDat_ChannelBase chBase)
+    DataCache_Channel_I32(DataCache_FileBase _parent, DiaDat_ChannelBase chBase)
     {
         super(_parent);
         ch =chBase;

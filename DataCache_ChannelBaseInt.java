@@ -4,7 +4,7 @@ import diaDat.DiaDat_ChannelBase;
 
 abstract public class DataCache_ChannelBaseInt extends DataCache_ChannelBase {
 
-    DataCache_ChannelBaseInt(DataCache_File _parent, DiaDat_ChannelBase chBase) {
+    DataCache_ChannelBaseInt(DataCache_FileBase _parent, DiaDat_ChannelBase chBase) {
         super(_parent);
         ch = chBase;
         factor = ch.getFactor();

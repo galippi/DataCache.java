@@ -2,7 +2,7 @@ package dataCache;
 
 public class DataCache_PointIndex extends DataCache_ChannelBase
 {
-    public DataCache_PointIndex(DataCache_File _parent, String _chName)
+    public DataCache_PointIndex(DataCache_FileBase _parent, String _chName)
     {
         super(_parent);
         chName = _chName;

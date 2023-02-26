@@ -4,7 +4,7 @@ import diaDat.DiaDat_ChannelBase;
 
 abstract public class DataCache_ChannelBasePureInt extends DataCache_ChannelBaseInt {
 
-    DataCache_ChannelBasePureInt(DataCache_File _parent, DiaDat_ChannelBase chBase)
+    DataCache_ChannelBasePureInt(DataCache_FileBase _parent, DiaDat_ChannelBase chBase)
     {
         super(_parent, chBase);
     }
