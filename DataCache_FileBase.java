@@ -16,6 +16,8 @@ import lippiWare.utils.dbg;
 
 abstract public class DataCache_FileBase
 {
+    abstract public boolean fastCheck(String filename);
+
     public DataCache_FileBase()
     {
     }

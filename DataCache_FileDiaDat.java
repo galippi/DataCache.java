@@ -9,6 +9,7 @@ import java.util.Vector;
 import diaDat.DiaDat_ChannelBase;
 import diaDat.DiaDat_Direction;
 import diaDat.DiaDat_File;
+import lippiWare.utils.FileNameExtension;
 import lippiWare.utils.Sprintf;
 import lippiWare.utils.dbg;
 
@@ -33,6 +34,12 @@ public class DataCache_FileDiaDat extends DataCache_FileBase
     public void open(String _filename)
     {
         filename = _filename;
+        if (!fastCheck(filename))
+        {
+            dbg.dprintf(1, "Error loading file %s - not supported extension!\n", filename);
+            state = DataCache_State.DataCache_Error;
+            return;
+        }
         try
         {
             file = new DiaDat_File(filename);
@@ -199,5 +206,12 @@ public class DataCache_FileDiaDat extends DataCache_FileBase
     }
     public boolean isReady() {
         return state == DataCache_State.DataCache_Ready;
+    }
+
+    @Override
+    public boolean fastCheck(String filename) {
+        if (FileNameExtension.get(filename).equalsIgnoreCase("dat"))
+            return true;
+        return false;
     }
 }
