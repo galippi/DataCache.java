@@ -9,8 +9,8 @@ import java.util.Vector;
 import diaDat.DiaDat_ChannelBase;
 import diaDat.DiaDat_Direction;
 import diaDat.DiaDat_File;
-import utils.Sprintf;
-import utils.dbg;
+import lippiWare.utils.Sprintf;
+import lippiWare.utils.dbg;
 
 public class DataCache_FileDiaDat extends DataCache_FileBase
 {

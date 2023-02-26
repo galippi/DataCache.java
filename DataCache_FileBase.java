@@ -2,6 +2,7 @@ package dataCache;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.Vector;
@@ -9,8 +10,9 @@ import java.util.Vector;
 import diaDat.DiaDat_ChannelBase;
 import diaDat.DiaDat_Direction;
 import diaDat.DiaDat_File;
-import utils.Sprintf;
-import utils.dbg;
+
+import lippiWare.utils.Sprintf;
+import lippiWare.utils.dbg;
 
 abstract public class DataCache_FileBase
 {
