@@ -117,7 +117,7 @@ public class DataCache_FileDiaDat extends DataCache_FileBase
                     ch = new DataCache_Channel_R32(this, chBase);
                     break;
                 default:
-                    throw new Exception(Sprintf.sprintf("DataCache_File.getChannel - not implemented channel type %s in file %s!", chBase.getName(), file.getName()));
+                    throw new Exception(Sprintf.sprintf("DataCache_File.getChannel - not implemented channel type %s in file %s!", chBase.getName(), getName()));
             }
         }else
         {
@@ -131,47 +131,6 @@ public class DataCache_FileDiaDat extends DataCache_FileBase
     public void getRecord(int idx)
     {
         
-    }
-
-    public int getChannelNumber() {
-        return channels.size();
-    }
-
-    public DiaDat_ChannelBase getRawChannel(String chName) {
-        return file.getChannel(chName);
-    }
-
-    public DiaDat_ChannelBase getRawChannel(int i) {
-        return file.getChannel(i);
-    }
-
-    public DataCache_ChannelBase getChannel(int i) {
-        return channels.get(i);
-    }
-
-    public DataCache_ChannelBase getChannel(String chName)
-    {
-        return channelsTree.get(chName);
-    }
-
-    public DataCache_ChannelBase getIndexChannel() {
-        return channels.get(0);
-    }
-
-    public String getStateString() {
-        switch (state)
-        {
-            case DataCache_Init:
-                return "DataCache is initialized";
-            case DataCache_Loading:
-                return "Loading file " + filename;
-            case DataCache_Ready:
-                return "File " + filename + " is loaded";
-            case DataCache_Error:
-                return "Error loading file " + filename;
-            default:
-                return "Unknown state of file " + filename;
-        }
     }
 
     public DataCache_State getState() {
@@ -195,23 +154,23 @@ public class DataCache_FileDiaDat extends DataCache_FileBase
         return file.getName();
     }
 
-    DataCache_State state = DataCache_State.DataCache_Loading;
-    DiaDat_File file;
-    TreeMap<String, DataCache_ChannelBase> channelsTree = new TreeMap<String, DataCache_ChannelBase>();
-    Vector<DataCache_ChannelBase> channels = new Vector();
-    DataCache_ChannelBase pointIndex;
-
     public int getLength() throws Exception {
         return file.getLength();
     }
-    public boolean isReady() {
-        return state == DataCache_State.DataCache_Ready;
-    }
 
-    @Override
-    public boolean fastCheck(String filename) {
+    static public boolean fastCheck(String filename) {
         if (FileNameExtension.get(filename).equalsIgnoreCase("dat"))
             return true;
         return false;
     }
+
+    public DiaDat_ChannelBase getRawChannel(String chName) {
+        return file.getChannel(chName);
+    }
+
+    public DiaDat_ChannelBase getRawChannel(int i) {
+        return file.getChannel(i);
+    }
+
+    DiaDat_File file;
 }
