@@ -27,6 +27,11 @@ abstract public class DataCache_FileBase
         
     }
 
+    public void add(DataCache_ChannelBase ch) {
+        channels.add(ch);
+        channelsTree.put(ch.getName(), ch);
+    }
+
     public int getChannelNumber() {
         return channels.size();
     }
