@@ -24,8 +24,10 @@ public class DataCache_FileCanBlf extends DataCache_FileCan {
         try {
             blf = new BlfReader(_filename);
             TreeMap<Long, Vector<CanMessage>> messages = new TreeMap<>();
+            double[] timeVal = new double[blf.size()];
             for (int i = 0; i < blf.size(); i++) {
                 CanMessage msg = blf.get(i);
+                timeVal[i] = msg.getTime();
                 long storeId = msg.getIdRaw() | (((long)msg.getChannel()) << 32);
                 Long oStoreId = Long.valueOf(storeId);
                 Vector<CanMessage> messagesArray = messages.get(oStoreId);
@@ -39,6 +41,7 @@ public class DataCache_FileCanBlf extends DataCache_FileCan {
                 }
                 messagesArray.add(msg);
             }
+            add(new DataCache_Channel_Double(this, "time", timeVal));
             for (Map.Entry<Long, Vector<CanMessage>> entry : messages.entrySet()) {
                 long id = entry.getKey();
                 Vector<CanMessage> ms = entry.getValue();
