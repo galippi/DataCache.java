@@ -49,6 +49,11 @@ public class DataCache_Channel_U8_CAN extends DataCache_ChannelBase {
         return 255;
     }
 
+    @Override
+    public boolean isTimeBasedChannel() {
+        return false;
+    }
+
     String chName;
     byte[] dataBuffer;
 }

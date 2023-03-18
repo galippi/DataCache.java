@@ -48,4 +48,7 @@ abstract public class DataCache_ChannelBase
     public String getUnit() {
         return "";
     }
+    public boolean isTimeBasedChannel() {
+        return true;
+    }
 }
