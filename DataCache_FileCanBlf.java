@@ -4,8 +4,10 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.Vector;
 
+import dataVisualizer.DataVisualizer;
 import lippiWare.blfHandler.BlfReader;
 import lippiWare.blfHandler.CanMessage;
+import lippiWare.utils.BusyDialog;
 import lippiWare.utils.FileNameExtension;
 import lippiWare.utils.dbg;
 
@@ -21,6 +23,7 @@ public class DataCache_FileCanBlf extends DataCache_FileCan {
     public void open(String _filename) {
         filename = _filename;
         dbg.println(9, "DataCache_FileCanBlf.open filename=" + _filename);
+        BusyDialog bd = new BusyDialog(DataVisualizer.getMainFrame());
         try {
             blf = new BlfReader(_filename);
             TreeMap<Long, Vector<CanMessage>> messages = new TreeMap<>();
@@ -59,6 +62,7 @@ public class DataCache_FileCanBlf extends DataCache_FileCan {
             e.printStackTrace();
             dbg.println(1, "BlfReader exception e=" + e.toString());
         }
+        bd.close();
         dbg.println(19, "DataCache_FileCanBlf.open done");
     }
 
