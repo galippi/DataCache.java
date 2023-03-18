@@ -4,7 +4,7 @@ import java.util.Vector;
 
 import lippiWare.blfHandler.CanMessage;
 
-public class DataCache_Channel_U8_CAN extends DataCache_ChannelBase {
+public class DataCache_Channel_U8_CAN extends DataCache_ChannelBasePointBased {
     public DataCache_Channel_U8_CAN(DataCache_FileBase _parent,
                                     String _chName,
                                     Vector<CanMessage> ms,
@@ -47,11 +47,6 @@ public class DataCache_Channel_U8_CAN extends DataCache_ChannelBase {
     @Override
     public double getDoubleMax() throws Exception {
         return 255;
-    }
-
-    @Override
-    public boolean isTimeBasedChannel() {
-        return false;
     }
 
     String chName;
