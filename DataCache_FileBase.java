@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.Vector;
 
+import javax.swing.JDialog;
+
 abstract public class DataCache_FileBase
 {
     public DataCache_FileBase()
@@ -90,6 +92,14 @@ abstract public class DataCache_FileBase
 
     public boolean isReady() {
         return state == DataCache_State.DataCache_Ready;
+    }
+
+    public JDialog getDataSourceConfigDlg() {
+        return null;
+    }
+
+    public boolean setLayout(Object dvlf) {
+        return false; // layout info is not used by default
     }
 
     DataCache_State state = DataCache_State.DataCache_Loading;
