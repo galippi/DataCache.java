@@ -2,6 +2,7 @@ package dataCache;
 
 import javax.swing.JDialog;
 
+import dataVisualizer.DataSourceCanConfigDialog;
 import dataVisualizer.DataVisualizerLayoutFileLoader;
 
 public abstract class DataCache_FileCan extends DataCache_FileBase {
@@ -13,7 +14,7 @@ public abstract class DataCache_FileCan extends DataCache_FileBase {
     }
 
     @Override
-    public JDialog getDataSourceConfigDlg() {
-        return new JDialog();
+    public JDialog getDataSourceConfigDlg(Object o) {
+        return new DataSourceCanConfigDialog(o);
     }
 }

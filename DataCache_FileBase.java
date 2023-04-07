@@ -94,7 +94,7 @@ abstract public class DataCache_FileBase
         return state == DataCache_State.DataCache_Ready;
     }
 
-    public JDialog getDataSourceConfigDlg() {
+    public JDialog getDataSourceConfigDlg(Object o) {
         return null;
     }
 
