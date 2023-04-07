@@ -102,6 +102,10 @@ abstract public class DataCache_FileBase
         return false; // layout info is not used by default
     }
 
+    public Vector<Integer> getDataSourceChannelIndexArray() {
+        return null;
+    }
+
     DataCache_State state = DataCache_State.DataCache_Loading;
     TreeMap<String, DataCache_ChannelBase> channelsTree = new TreeMap<String, DataCache_ChannelBase>();
     Vector<DataCache_ChannelBase> channels = new Vector<>();

@@ -1,7 +1,9 @@
 package dataCache;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.Vector;
 
 import dataVisualizer.DataVisualizer;
@@ -28,6 +30,7 @@ public class DataCache_FileCanBlf extends DataCache_FileCan {
             blf = new BlfReader(_filename);
             TreeMap<Long, Vector<CanMessage>> messages = new TreeMap<>();
             double[] timeVal = new double[blf.size()];
+            TreeSet<Integer> channelIndexesTreeSet = new TreeSet<>();
             for (int i = 0; i < blf.size(); i++) {
                 CanMessage msg = blf.get(i);
                 timeVal[i] = msg.getTime();
@@ -43,6 +46,7 @@ public class DataCache_FileCanBlf extends DataCache_FileCan {
                     
                 }
                 messagesArray.add(msg);
+                channelIndexesTreeSet.add(Integer.valueOf(msg.getChannel()));
             }
             add(new DataCache_Channel_Double(this, "time", timeVal));
             for (Map.Entry<Long, Vector<CanMessage>> entry : messages.entrySet()) {
@@ -56,6 +60,12 @@ public class DataCache_FileCanBlf extends DataCache_FileCan {
                     add(ch);
                 }
             }
+
+            channelIndexes.clear();
+            Iterator<Integer> i = channelIndexesTreeSet.iterator();
+            while (i.hasNext())
+                channelIndexes.add(i.next());
+
             state = DataCache_State.DataCache_Ready;
             executeActionListener();
         } catch (Exception e) {
@@ -71,5 +81,10 @@ public class DataCache_FileCanBlf extends DataCache_FileCan {
         return blf.size();
     }
 
+    public Vector<Integer> getDataSourceChannelIndexArray() {
+        return channelIndexes;
+    }
+
+    Vector<Integer> channelIndexes = new Vector<>();
     BlfReader blf;
 }
