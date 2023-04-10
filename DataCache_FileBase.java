@@ -9,6 +9,16 @@ import java.util.Vector;
 
 import javax.swing.JDialog;
 
+class DataCache_FileBaseActionEvent extends ActionEvent {
+    DataCache_FileBaseActionEvent(Object source, int id, String command) {
+        super(source, id, command);
+    }
+    public String toString() {
+        return this.paramString();
+    }
+    private static final long serialVersionUID = 3904205432553161640L;
+}
+
 abstract public class DataCache_FileBase
 {
     public DataCache_FileBase()
@@ -77,9 +87,11 @@ abstract public class DataCache_FileBase
       listeners.add(l);
     }
 
-    void executeActionListener() {
+    void executeActionListener(String errorMsg) {
+        if (errorMsg == null)
+            errorMsg = "file is loaded";
         for (ActionListener l : listeners) {
-            ActionEvent e = new ActionEvent (this, 0, "file is loaded");
+            ActionEvent e = new DataCache_FileBaseActionEvent (this, 0, errorMsg);
             l.actionPerformed(e);
           }
       }

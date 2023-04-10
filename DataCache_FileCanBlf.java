@@ -26,6 +26,7 @@ public class DataCache_FileCanBlf extends DataCache_FileCan {
         filename = _filename;
         dbg.println(9, "DataCache_FileCanBlf.open filename=" + _filename);
         BusyDialog bd = new BusyDialog(DataVisualizer.getMainFrame());
+        String errorMsg = null;
         try {
             blf = new BlfReader(_filename);
             TreeMap<Long, Vector<CanMessage>> messages = new TreeMap<>();
@@ -67,13 +68,15 @@ public class DataCache_FileCanBlf extends DataCache_FileCan {
                 channelIndexes.add(i.next());
 
             state = DataCache_State.DataCache_Ready;
-            executeActionListener();
         } catch (Exception e) {
             e.printStackTrace();
             dbg.println(1, "BlfReader exception e=" + e.toString());
+            state = DataCache_State.DataCache_Error;
+            errorMsg = e.toString();
         }
         bd.close();
         dbg.println(19, "DataCache_FileCanBlf.open done");
+        executeActionListener(errorMsg);
     }
 
     @Override
