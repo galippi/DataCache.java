@@ -83,6 +83,11 @@ public class DataCache_Channel_U8_CAN extends DataCache_ChannelBasePointBased {
         return null;
     }
 
+    @Override
+    public int size() {
+        return messages.size();
+    }
+
     String chName;
     Vector<CanMessage> messages;
     int byteIdx;
