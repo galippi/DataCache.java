@@ -16,4 +16,9 @@ public abstract class DataCache_ChannelBasePointBased extends DataCache_ChannelB
     public abstract DataPointBase getPoint(int pointIdx);
 
     public abstract int getPointIdx(double t);
+
+    public int size() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 }
