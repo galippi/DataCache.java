@@ -60,10 +60,12 @@ public class DataCache_Channel_U8_CAN extends DataCache_ChannelBasePointBased {
         if (t < msgLeft.getTime())
             return -1;
         CanMessage msgRight = messages.get(rightIdx);
-        if (t > msgRight.getTime())
+        if (t >= msgRight.getTime())
             return rightIdx;
         while (leftIdx != rightIdx) {
             int middleIdx = (leftIdx + rightIdx) / 2;
+            if (middleIdx == leftIdx)
+                return leftIdx;
             CanMessage msgMiddle = messages.get(middleIdx);
             if (t < msgMiddle.getTime())
                 rightIdx = middleIdx;

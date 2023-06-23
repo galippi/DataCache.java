@@ -7,7 +7,7 @@ import java.util.TreeSet;
 import java.util.Vector;
 
 import dataVisualizer.DataVisualizer;
-import lippiWare.blfHandler.BlfReader;
+import lippiWare.blfHandler.CanLogReader;
 import lippiWare.blfHandler.CanMessage;
 import lippiWare.utils.BusyDialog;
 import lippiWare.utils.FileNameExtension;
@@ -17,6 +17,8 @@ public class DataCache_FileCanBlf extends DataCache_FileCan {
 
     static public boolean fastCheck(String filename) {
         if (FileNameExtension.get(filename).equalsIgnoreCase("blf"))
+            return true;
+        if (FileNameExtension.get(filename).equalsIgnoreCase("asc"))
             return true;
         return false;
     }
@@ -28,7 +30,7 @@ public class DataCache_FileCanBlf extends DataCache_FileCan {
         BusyDialog bd = new BusyDialog(DataVisualizer.getMainFrame());
         String errorMsg = null;
         try {
-            blf = new BlfReader(_filename);
+            blf = CanLogReader.read(_filename);
             TreeMap<Long, Vector<CanMessage>> messages = new TreeMap<>();
             double[] timeVal = new double[blf.size()];
             TreeSet<Integer> channelIndexesTreeSet = new TreeSet<>();
@@ -88,6 +90,11 @@ public class DataCache_FileCanBlf extends DataCache_FileCan {
         return channelIndexes;
     }
 
+    @Override
+    public boolean isPointBasedFile() {
+        return true;
+    }
+
     Vector<Integer> channelIndexes = new Vector<>();
-    BlfReader blf;
+    CanLogReader blf;
 }

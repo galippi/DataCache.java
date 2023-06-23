@@ -171,5 +171,10 @@ public class DataCache_FileDiaDat extends DataCache_FileBase
         return file.getChannel(i);
     }
 
+    @Override
+    public boolean isPointBasedFile() {
+        return false;
+    }
+
     DiaDat_File file;
 }

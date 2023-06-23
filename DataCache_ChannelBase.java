@@ -51,4 +51,5 @@ abstract public class DataCache_ChannelBase
     public boolean isTimeBasedChannel() {
         return true;
     }
+    public abstract int getPointIdx(double val);
 }

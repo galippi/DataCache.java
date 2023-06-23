@@ -39,6 +39,30 @@ public class DataCache_Channel_Double extends DataCache_ChannelBase {
         return dataBuffer[dataBuffer.length - 1];
     }
 
+    @Override
+    public int getPointIdx(double val) {
+        // this works only for ordered (e.g. time) values
+        if (val <= dataBuffer[0])
+            return 0;
+        int leftIdx = 0;
+        int rightIdx = dataBuffer.length - 1;
+        if (val >= dataBuffer[rightIdx])
+            return rightIdx;
+        while(true) {
+            int middleIdx = leftIdx + (rightIdx - leftIdx) / 2;
+            if (val <= dataBuffer[middleIdx])
+                if (middleIdx == rightIdx)
+                    return middleIdx;
+                else
+                    rightIdx = middleIdx;
+            else
+                if (middleIdx == leftIdx)
+                    return middleIdx;
+                else
+                    leftIdx = middleIdx;
+        }
+    }
+
     String chName;
     double[] dataBuffer;
 }

@@ -118,6 +118,8 @@ abstract public class DataCache_FileBase
         return null;
     }
 
+    public abstract boolean isPointBasedFile();
+
     DataCache_State state = DataCache_State.DataCache_Loading;
     TreeMap<String, DataCache_ChannelBase> channelsTree = new TreeMap<String, DataCache_ChannelBase>();
     Vector<DataCache_ChannelBase> channels = new Vector<>();
