@@ -31,4 +31,10 @@ public class DataCache_PointIndex extends DataCache_ChannelBase
     protected void set(int i) throws Exception {
         throw new Exception("DataCache_PointIndex.set - not yet implemented!");
     }
+
+    @Override
+    public int getPointIdx(double val) {
+        // TODO Auto-generated method stub
+        throw new Error("Not yet implemented!");
+    }
 }

@@ -58,6 +58,12 @@ public class DataCache_Channel_U32 extends DataCache_ChannelBase {
         return getRawMax() * ch.getFactor() + ch.getOffset();
     }
 
+    @Override
+    public int getPointIdx(double val) {
+        // TODO Auto-generated method stub
+        throw new Error("Not yet implemented!");
+    }
+
     DiaDat_ChannelBase ch;
     int[] dataBuffer;
     double factor, offset;

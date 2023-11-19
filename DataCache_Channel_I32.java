@@ -33,6 +33,12 @@ public class DataCache_Channel_I32 extends DataCache_ChannelBase {
         dataBuffer[idx] = ch.getValueRaw();
     }
 
+    @Override
+    public int getPointIdx(double val) {
+        // TODO Auto-generated method stub
+        throw new Error("Not yet implemented!");
+    }
+
     DiaDat_ChannelBase ch;
     int[] dataBuffer;
     double factor, offset;

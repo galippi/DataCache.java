@@ -48,6 +48,12 @@ public class DataCache_Channel_R32 extends DataCache_ChannelBase {
         return valMax;
     }
 
+    @Override
+    public int getPointIdx(double val) {
+        // TODO Auto-generated method stub
+        throw new Error("Not yet implemented!");
+    }
+
     DiaDat_ChannelBase ch;
     float[] dataBuffer;
     double valMin = 1e99;

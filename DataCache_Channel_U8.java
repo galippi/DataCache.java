@@ -41,4 +41,10 @@ public class DataCache_Channel_U8 extends DataCache_ChannelBaseInt
     public double getDoubleMax() throws Exception {
         return getRawMax() * ch.getFactor() + ch.getOffset();
     }
+
+    @Override
+    public int getPointIdx(double val) {
+        // TODO Auto-generated method stub
+        throw new Error("Not yet implemented!");
+    }
 }

@@ -29,5 +29,11 @@ public class DataCache_Channel_U16 extends DataCache_ChannelBaseInt {
         dataBuffer[idx * 2 + 1] = (byte)(val / 256);
     }
 
+    @Override
+    public int getPointIdx(double val) {
+        // TODO Auto-generated method stub
+        throw new Error("Not yet implemented!");
+    }
+
     Byte[] dataBuffer;
 }

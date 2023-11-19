@@ -29,5 +29,11 @@ public class DataCache_Channel_I16_PureInt extends DataCache_ChannelBasePureInt 
         dataBuffer[idx] = (byte)raw;
     }
 
+    @Override
+    public int getPointIdx(double val) {
+        // TODO Auto-generated method stub
+        throw new Error("Not yet implemented!");
+    }
+
     Byte[] dataBuffer;
 }
