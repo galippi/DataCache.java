@@ -9,6 +9,8 @@ import java.util.Vector;
 
 import javax.swing.JDialog;
 
+import dataVisualizer.DataVisualizerLayoutFileLoader;
+
 class DataCache_FileBaseActionEvent extends ActionEvent {
     DataCache_FileBaseActionEvent(Object source, int id, String command) {
         super(source, id, command);
@@ -37,6 +39,11 @@ abstract public class DataCache_FileBase
     public void getRecord(int idx)
     {
         
+    }
+
+    void channelsInit() {
+        channels.clear();
+        channelsTree.clear();
     }
 
     public void add(DataCache_ChannelBase ch) {
@@ -119,6 +126,10 @@ abstract public class DataCache_FileBase
     }
 
     public abstract boolean isPointBasedFile();
+
+    public void updateChannelList(DataVisualizerLayoutFileLoader dvlf) {
+        throw new Error("Not yet implemented!");
+    }
 
     DataCache_State state = DataCache_State.DataCache_Loading;
     TreeMap<String, DataCache_ChannelBase> channelsTree = new TreeMap<String, DataCache_ChannelBase>();

@@ -51,18 +51,9 @@ public class DataCache_FileCanBlf extends DataCache_FileCan {
                 messagesArray.add(msg);
                 channelIndexesTreeSet.add(Integer.valueOf(msg.getChannel()));
             }
-            add(new DataCache_Channel_Double(this, "time", timeVal));
-            for (Map.Entry<Long, Vector<CanMessage>> entry : messages.entrySet()) {
-                long id = entry.getKey();
-                Vector<CanMessage> ms = entry.getValue();
-                int dlc = ms.get(0).getDlc();
-                for (int i = 0; i < dlc; i++) {
-                    //CanMessageHandler cmh = new CanMessageHandler(ms, i);
-                    String chName = "Ch" + ((id >> 32) & 0xFF) + "_Id" + Long.toHexString(id & 0x9FFFFFFFl) + "_b" + i;
-                    DataCache_ChannelBase ch = new DataCache_Channel_U8_CAN(this, chName, ms, i);
-                    add(ch);
-                }
-            }
+
+            channelsInit();
+            channelsUpdate(timeVal, messages);
 
             channelIndexes.clear();
             Iterator<Integer> i = channelIndexesTreeSet.iterator();
