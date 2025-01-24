@@ -55,6 +55,11 @@ public class DataCache_Channel_R64 extends DataCache_ChannelBase
         throw new Error("Not yet implemented!");
     }
 
+    @Override
+    public String getUnit() {
+        return ch.getUnit();
+    }
+
     DiaDat_ChannelBase ch;
     double[] dataBuffer;
     double valMin = 1e99;
