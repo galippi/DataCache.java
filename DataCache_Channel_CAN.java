@@ -25,12 +25,29 @@ public class DataCache_Channel_CAN  extends DataCache_ChannelBasePointBased {
 
     @Override
     public int getPointIdx(double t) {
-        throw new Error("Not yet implemented!");
+        int leftIdx = 0, rightIdx = messages.size() - 1;
+        CanMessage msgLeft = messages.get(leftIdx);
+        if (t < msgLeft.getTime())
+            return -1;
+        CanMessage msgRight = messages.get(rightIdx);
+        if (t >= msgRight.getTime())
+            return rightIdx;
+        while (leftIdx != rightIdx) {
+            int middleIdx = (leftIdx + rightIdx) / 2;
+            if (middleIdx == leftIdx)
+                return leftIdx;
+            CanMessage msgMiddle = messages.get(middleIdx);
+            if (t < msgMiddle.getTime())
+                rightIdx = middleIdx;
+            else
+                leftIdx = middleIdx;
+        }
+        return leftIdx;
     }
 
     @Override
     public int size() {
-        throw new Error("Not yet implemented!");
+        return messages.size();
     }
 
     @Override
@@ -40,7 +57,30 @@ public class DataCache_Channel_CAN  extends DataCache_ChannelBasePointBased {
 
     @Override
     public double getDouble(int idx) throws Exception {
-        throw new Error("Not yet implemented!");
+        long rawVal = 0;
+        CanMessage msg = messages.get(idx);
+        int len = signal.bitLen;
+        int pos = signal.bitPos;
+        int byteIdx = pos / 8;
+        pos = pos % 8;
+        int shift = 0;
+        while (len > 0) {
+            int val = msg.get(byteIdx);
+            val = val >> pos;
+            if (len < 8) {
+                val = val & ((1 << len) - 1);
+                rawVal = rawVal + (val << shift);
+                shift = shift + 8 - pos;
+                len = 0;
+            }else {
+                val = val & 0xFF;
+                rawVal = rawVal + (val << shift);
+                shift = shift + 8;
+                len = len - 8;
+            }
+            pos = 0;
+        }
+        return (rawVal * signal.factor) + signal.offset;
     }
 
     @Override
@@ -51,6 +91,16 @@ public class DataCache_Channel_CAN  extends DataCache_ChannelBasePointBased {
     @Override
     protected void set(int i) throws Exception {
         throw new Error("Not yet implemented!");
+    }
+
+    @Override
+    public double getDoubleMin() throws Exception {
+        return signal.min;
+    }
+
+    @Override
+    public double getDoubleMax() throws Exception {
+        return signal.max;
     }
 
     DbcSignal signal;

@@ -31,6 +31,7 @@ public abstract class DataCache_FileCan extends DataCache_FileBase {
     void channelsUpdate(double[] timeVal, TreeMap<Long, Vector<CanMessage>> messages) {
         if (dvlf == null)
             dvlf = new DataVisualizerLayoutFileLoader(this.getName());
+        channelsInit();
         add(new DataCache_Channel_Double(this, "time", timeVal));
         int signalMode = dvlf.getDbcSignalMode();
         if ((signalMode == dvlf.SignalModeRaw) || (signalMode == dvlf.SignalModeBoth)) {
@@ -63,13 +64,13 @@ public abstract class DataCache_FileCan extends DataCache_FileBase {
                             if (dbc == null)
                                 dbg.println(9, "Error: unable to get dbc " + dbcName);
                             else {
-                                found = true;
                                 DbcMessage msg = dbc.get(msgId);
                                 for (Map.Entry<String, DbcSignal> signalEntry : msg.entrySet())
                                 {
                                     DbcSignal signal = signalEntry.getValue();
                                     DataCache_ChannelBase ch = new DataCache_Channel_CAN(this, signal, ms);
                                     add(ch);
+                                    found = true;
                                 }
                             }
                         } catch (Exception e) {
@@ -94,55 +95,22 @@ public abstract class DataCache_FileCan extends DataCache_FileBase {
     public int getChannelNumber() {
         if (dvlf == null)
             throw new Error("Missing implementation!");
-        int signalMode = dvlf.getDbcSignalMode();
-        if (signalMode == dvlf.SignalModeRaw)
-            return channels.size();
-        int signalCount = 0;
-        TreeMap<Integer, Vector<String>> dbcMap = dvlf.getDbcNames();
-        for (Entry<Integer, Vector<String>> 
-             entry : dbcMap.entrySet()) {
-            Vector<String> dbcList = entry.getValue();
-            for(int i = 0; i < dbcList.size(); i++) {
-                String dbcName = dbcList.get(i);
-                try {
-                    //DbcFile dbc = new DbcFile(dbcName);
-                    DbcFile dbc = dvlf.getDbcFile(entry.getKey(), i);
-                    if (dbc == null)
-                        dbg.println(9, "Error: unable to get dbc " + dbcName);
-                    else
-                        signalCount += dbc.sizeSignal();
-                } catch (Exception e) {
-                    dbg.println(2, "Error loading dbcName! e=" + e.toString());
-                }
-            }
-        }
-        if (signalMode == dvlf.SignalModeLogical)
-            return signalCount;
-        else
-            return channels.size() + signalCount;
+        return channels.size();
     }
 
     @Override
     public DataCache_ChannelBase getChannel(int i) {
         if (dvlf == null)
             throw new Error("Missing implementation!");
-        int signalMode = dvlf.getDbcSignalMode();
-        if (signalMode == dvlf.SignalModeRaw)
-            return channels.get(i);
-        if (signalMode == dvlf.SignalModeLogical)
-            throw new Error("Not yet implemented!");
-            //return signalCount;
-        else { // both signals
-            if (i < channels.size())
-                return channels.get(i);
-            throw new Error("Not yet implemented!");
-        }
+        return channels.get(i);
     }
 
-    //@Override
-    public void updateChannelList_(DataVisualizerLayoutFileLoader dvlf) {
-        throw new Error("Not yet implemented!");
+    @Override
+    public void updateChannelList(DataVisualizerLayoutFileLoader dvlf) {
+        channelsUpdate(timeVal, messages);
     }
 
     DataVisualizerLayoutFileLoader dvlf;
+    TreeMap<Long, Vector<CanMessage>> messages;
+    double[] timeVal;
 }

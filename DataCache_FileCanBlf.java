@@ -31,8 +31,8 @@ public class DataCache_FileCanBlf extends DataCache_FileCan {
         String errorMsg = null;
         try {
             blf = CanLogReader.read(_filename);
-            TreeMap<Long, Vector<CanMessage>> messages = new TreeMap<>();
-            double[] timeVal = new double[blf.size()];
+            messages = new TreeMap<>();
+            timeVal = new double[blf.size()];
             TreeSet<Integer> channelIndexesTreeSet = new TreeSet<>();
             for (int i = 0; i < blf.size(); i++) {
                 CanMessage msg = blf.get(i);
