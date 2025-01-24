@@ -22,9 +22,7 @@ public class DataCache_Channel_U8_CAN extends DataCache_ChannelBasePointBased {
 
     @Override
     public double getDouble(int idx) throws Exception {
-        //throw new Error("Not yet implemented!");
-        // TODO: 
-        return idx % 256;
+        return messages.get(idx).get(byteIdx);
     }
 
     @Override
