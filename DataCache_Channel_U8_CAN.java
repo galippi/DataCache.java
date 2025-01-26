@@ -7,7 +7,7 @@ import lippiWare.blfHandler.CanMessage;
 public class DataCache_Channel_U8_CAN extends DataCache_ChannelBasePointBased {
     public DataCache_Channel_U8_CAN(DataCache_FileBase _parent,
                                     String _chName,
-                                    Vector<CanMessage> ms,
+                                    CANMessageIndexed ms,
                                     int _byteIdx) {
         super(_parent);
         chName = _chName;
@@ -21,8 +21,13 @@ public class DataCache_Channel_U8_CAN extends DataCache_ChannelBasePointBased {
     }
 
     @Override
-    public double getDouble(int idx) throws Exception {
-        return messages.get(idx).get(byteIdx);
+    public double getDoubleGlobal(int idx) throws Exception {
+        return (messages.getGlobal(idx).get(byteIdx) & 0xFF);
+    }
+
+    @Override
+    public double getDoubleLocal(int idx) throws Exception {
+        return (messages.getLocal(idx).get(byteIdx) & 0xFF);
     }
 
     @Override
@@ -87,6 +92,6 @@ public class DataCache_Channel_U8_CAN extends DataCache_ChannelBasePointBased {
     }
 
     String chName;
-    Vector<CanMessage> messages;
+    CANMessageIndexed messages;
     int byteIdx;
 }

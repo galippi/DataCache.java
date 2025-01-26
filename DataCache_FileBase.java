@@ -10,6 +10,7 @@ import java.util.Vector;
 import javax.swing.JDialog;
 
 import dataVisualizer.DataVisualizerLayoutFileLoader;
+import lippiWare.utils.dbg;
 
 class DataCache_FileBaseActionEvent extends ActionEvent {
     DataCache_FileBaseActionEvent(Object source, int id, String command) {
@@ -128,7 +129,8 @@ abstract public class DataCache_FileBase
     public abstract boolean isPointBasedFile();
 
     public void updateChannelList(DataVisualizerLayoutFileLoader dvlf) {
-        throw new Error("Not yet implemented!");
+        dbg.println(1, "DataCache_FileBase.updateChannelList - Not yet implemented!");
+        //throw new Error("Not yet implemented!");
     }
 
     DataCache_State state = DataCache_State.DataCache_Loading;

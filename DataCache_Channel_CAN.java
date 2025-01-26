@@ -1,13 +1,11 @@
 package dataCache;
 
-import java.util.Vector;
-
 import lippiWare.blfHandler.CanMessage;
 import measData.dbc.DbcSignal;
 
 public class DataCache_Channel_CAN  extends DataCache_ChannelBasePointBased {
 
-    DataCache_Channel_CAN(DataCache_FileBase _parent, DbcSignal _signal, Vector<CanMessage> ms) {
+    DataCache_Channel_CAN(DataCache_FileBase _parent, DbcSignal _signal, CANMessageIndexed ms) {
         super(_parent);
         signal = _signal;
         messages = ms;
@@ -51,14 +49,24 @@ public class DataCache_Channel_CAN  extends DataCache_ChannelBasePointBased {
     }
 
     @Override
-    public int get(int idx) throws Exception {
+    public int getGlobal(int idx) throws Exception {
         throw new Error("Not yet implemented!");
     }
 
     @Override
-    public double getDouble(int idx) throws Exception {
+    public int getLocal(int idx) throws Exception {
+        throw new Error("Not yet implemented!");
+    }
+
+    @Override
+    public double getDoubleGlobal(int idx) throws Exception {
+        throw new Error("Not yet implemented!");
+    }
+
+    @Override
+    public double getDoubleLocal(int idx) throws Exception {
         long rawVal = 0;
-        CanMessage msg = messages.get(idx);
+        CanMessage msg = messages.getLocal(idx);
         int len = signal.bitLen;
         int pos = signal.bitPos;
         int byteIdx = pos / 8;
@@ -104,5 +112,5 @@ public class DataCache_Channel_CAN  extends DataCache_ChannelBasePointBased {
     }
 
     DbcSignal signal;
-    Vector<CanMessage> messages;
+    CANMessageIndexed messages;
 }

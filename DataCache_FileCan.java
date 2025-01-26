@@ -1,6 +1,5 @@
 package dataCache;
 
-import java.util.Map.Entry;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.Vector;
@@ -9,8 +8,9 @@ import javax.swing.JDialog;
 
 import dataVisualizer.DataSourceCanConfigDialog;
 import dataVisualizer.DataVisualizerLayoutFileLoader;
-import lippiWare.blfHandler.CanMessage;
+
 import lippiWare.utils.dbg;
+
 import measData.dbc.DbcFile;
 import measData.dbc.DbcMessage;
 import measData.dbc.DbcSignal;
@@ -28,17 +28,18 @@ public abstract class DataCache_FileCan extends DataCache_FileBase {
         return new DataSourceCanConfigDialog(o);
     }
 
-    void channelsUpdate(double[] timeVal, TreeMap<Long, Vector<CanMessage>> messages) {
+    void channelsUpdate(double[] timeVal, TreeMap<Long, CANMessageIndexed> messages) {
         if (dvlf == null)
             dvlf = new DataVisualizerLayoutFileLoader(this.getName());
         channelsInit();
         add(new DataCache_Channel_Double(this, "time", timeVal));
         int signalMode = dvlf.getDbcSignalMode();
-        if ((signalMode == dvlf.SignalModeRaw) || (signalMode == dvlf.SignalModeBoth)) {
-            for (Map.Entry<Long, Vector<CanMessage>> entry : messages.entrySet()) {
+        if ((signalMode == DataVisualizerLayoutFileLoader.SignalModeRaw) ||
+            (signalMode == DataVisualizerLayoutFileLoader.SignalModeBoth)) {
+            for (Map.Entry<Long, CANMessageIndexed> entry : messages.entrySet()) {
                 long id = entry.getKey();
-                Vector<CanMessage> ms = entry.getValue();
-                int dlc = ms.get(0).getDlc();
+                CANMessageIndexed ms = entry.getValue();
+                int dlc = ms.messages.get(0).getDlc();
                 for (int i = 0; i < dlc; i++) {
                     //CanMessageHandler cmh = new CanMessageHandler(ms, i);
                     String chName = "Ch" + ((id >> 32) & 0xFF) + "_Id" + Long.toHexString(id & 0x9FFFFFFFl) + "_b" + i;
@@ -47,10 +48,10 @@ public abstract class DataCache_FileCan extends DataCache_FileBase {
                 }
             }
         }
-        if (signalMode != dvlf.SignalModeRaw) {
+        if (signalMode != DataVisualizerLayoutFileLoader.SignalModeRaw) {
             TreeMap<Integer, Vector<String>> dbcMap = dvlf.getDbcNames();
-            for (Map.Entry<Long, Vector<CanMessage>> entry : messages.entrySet()) {
-                Vector<CanMessage> ms = entry.getValue();
+            for (Map.Entry<Long, CANMessageIndexed> entry : messages.entrySet()) {
+                CANMessageIndexed ms = entry.getValue();
                 long key = entry.getKey();
                 long msgId = key & 0x9FFFFFFFl;
                 int chId = (int)((key >> 32) & 0xFF);
@@ -78,8 +79,8 @@ public abstract class DataCache_FileCan extends DataCache_FileBase {
                         }
                     }
                 }
-                if ((!found) && (signalMode == dvlf.SignalModeLogical)) {
-                    int dlc = ms.get(0).getDlc();
+                if ((!found) && (signalMode == DataVisualizerLayoutFileLoader.SignalModeLogical)) {
+                    int dlc = ms.messages.get(0).getDlc();
                     for (int i = 0; i < dlc; i++) {
                         //CanMessageHandler cmh = new CanMessageHandler(ms, i);
                         String chName = "Ch" + chId + "_Id" + Long.toHexString(msgId) + "_b" + i;
@@ -111,6 +112,6 @@ public abstract class DataCache_FileCan extends DataCache_FileBase {
     }
 
     DataVisualizerLayoutFileLoader dvlf;
-    TreeMap<Long, Vector<CanMessage>> messages;
+    TreeMap<Long, CANMessageIndexed> messages;
     double[] timeVal;
 }
