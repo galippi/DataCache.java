@@ -37,4 +37,9 @@ public class DataCache_PointIndex extends DataCache_ChannelBase
         // TODO Auto-generated method stub
         throw new Error("Not yet implemented!");
     }
+
+    @Override
+    public boolean isStrictMonotonic() {
+        return true;
+    }
 }

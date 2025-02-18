@@ -32,7 +32,7 @@ public abstract class DataCache_FileCan extends DataCache_FileBase {
         if (dvlf == null)
             dvlf = new DataVisualizerLayoutFileLoader(this.getName());
         channelsInit();
-        add(new DataCache_Channel_Double(this, "time", timeVal));
+        add(new DataCache_Channel_DoubleTime(this, "time", timeVal));
         int signalMode = dvlf.getDbcSignalMode();
         if ((signalMode == DataVisualizerLayoutFileLoader.SignalModeRaw) ||
             (signalMode == DataVisualizerLayoutFileLoader.SignalModeBoth)) {

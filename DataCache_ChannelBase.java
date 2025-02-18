@@ -64,7 +64,6 @@ abstract public class DataCache_ChannelBase
      */
     @Deprecated
     public double getDouble(int idx) throws Exception {
-        Long x = new Long(11);
         throw new Error("Not yet implemented!");
     }
 
@@ -112,4 +111,12 @@ abstract public class DataCache_ChannelBase
         return true;
     }
     public abstract int getPointIdx(double val);
+
+    public boolean isStrictMonotonic() {
+        return false;
+    }
+
+    public int getPointIdx(int x, int cursorDistance) {
+        throw new Error("Invalid call!");
+    }
 }
