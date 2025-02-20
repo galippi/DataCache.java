@@ -16,9 +16,39 @@ public class DataCache_Channel_CAN  extends DataCache_ChannelBasePointBased {
         throw new Error("Not yet implemented!");
     }
 
+    long extractRawVal(CanMessage msg) {
+        long rawVal = 0;
+        int len = signal.bitLen;
+        int pos = signal.bitPos;
+        int byteIdx = pos / 8;
+        pos = pos % 8;
+        int shift = 0;
+        while (len > 0) {
+            int val = msg.get(byteIdx);
+            val = val >> pos;
+            if (len < 8) {
+                val = val & ((1 << len) - 1);
+                rawVal = rawVal + (val << shift);
+                shift = shift + 8 - pos;
+                len = 0;
+            }else {
+                val = val & 0xFF;
+                rawVal = rawVal + (val << shift);
+                shift = shift + 8;
+                len = len - 8;
+            }
+            pos = 0;
+        }
+        return rawVal;
+    }
+
     @Override
     public DataPointBase getPoint(int pointIdx) {
-        throw new Error("Not yet implemented!");
+        CanMessage msg = messages.get(pointIdx);
+        long rawVal = extractRawVal(msg);
+        double val = (rawVal * signal.factor) + signal.offset;
+        DataPointBase pt = new DataPointDouble(msg.getTime(), val);
+        return pt;
     }
 
     @Override
@@ -60,7 +90,10 @@ public class DataCache_Channel_CAN  extends DataCache_ChannelBasePointBased {
 
     @Override
     public double getDoubleGlobal(int idx) throws Exception {
-        throw new Error("Not yet implemented!");
+        CanMessage msg = messages.getGlobal(idx);
+        long rawVal = extractRawVal(msg);
+        double val = (rawVal * signal.factor) + signal.offset;
+        return val;
     }
 
     @Override
