@@ -98,29 +98,8 @@ public class DataCache_Channel_CAN  extends DataCache_ChannelBasePointBased {
 
     @Override
     public double getDoubleLocal(int idx) throws Exception {
-        long rawVal = 0;
         CanMessage msg = messages.getLocal(idx);
-        int len = signal.bitLen;
-        int pos = signal.bitPos;
-        int byteIdx = pos / 8;
-        pos = pos % 8;
-        int shift = 0;
-        while (len > 0) {
-            int val = msg.get(byteIdx);
-            val = val >> pos;
-            if (len < 8) {
-                val = val & ((1 << len) - 1);
-                rawVal = rawVal + (val << shift);
-                shift = shift + 8 - pos;
-                len = 0;
-            }else {
-                val = val & 0xFF;
-                rawVal = rawVal + (val << shift);
-                shift = shift + 8;
-                len = len - 8;
-            }
-            pos = 0;
-        }
+        long rawVal = extractRawVal(msg);
         return (rawVal * signal.factor) + signal.offset;
     }
 
