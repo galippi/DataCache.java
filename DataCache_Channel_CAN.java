@@ -46,6 +46,8 @@ public class DataCache_Channel_CAN  extends DataCache_ChannelBasePointBased {
     public DataPointBase getPoint(int pointIdx) {
         CanMessage msg = messages.get(pointIdx);
         long rawVal = extractRawVal(msg);
+        //if ((rawVal < signal.minRaw) || (rawVal > signal.maxRaw))
+        //    throw new Error("CAN signal is out of double range!");
         double val = (rawVal * signal.factor) + signal.offset;
         DataPointBase pt = new DataPointDouble(msg.getTime(), val);
         return pt;
@@ -92,6 +94,8 @@ public class DataCache_Channel_CAN  extends DataCache_ChannelBasePointBased {
     public double getDoubleGlobal(int idx) throws Exception {
         CanMessage msg = messages.getGlobal(idx);
         long rawVal = extractRawVal(msg);
+        if ((rawVal < signal.minRaw) || (rawVal > signal.maxRaw))
+            throw new Exception("CAN signal is out of double range!");
         double val = (rawVal * signal.factor) + signal.offset;
         return val;
     }
