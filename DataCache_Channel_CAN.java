@@ -137,5 +137,10 @@ public class DataCache_Channel_CAN  extends DataCache_Channel_CAN_Base {
         return signal.max;
     }
 
+    @Override
+    public String getUnit() {
+        return signal.unit;
+    }
+
     DbcSignal signal;
 }
