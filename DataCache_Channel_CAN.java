@@ -3,7 +3,7 @@ package dataCache;
 import lippiWare.blfHandler.CanMessage;
 import measData.dbc.DbcSignal;
 
-public class DataCache_Channel_CAN  extends DataCache_ChannelBasePointBased {
+public class DataCache_Channel_CAN  extends DataCache_Channel_CAN_Base {
 
     DataCache_Channel_CAN(DataCache_FileBase _parent, DbcSignal _signal, CANMessageIndexed ms) {
         super(_parent);
@@ -51,11 +51,6 @@ public class DataCache_Channel_CAN  extends DataCache_ChannelBasePointBased {
         double val = (rawVal * signal.factor) + signal.offset;
         DataPointBase pt = new DataPointDouble(msg.getTime(), val);
         return pt;
-    }
-
-    public DataPointBase getPointGlobal(int idx) {
-        Integer idxLocal = messages.index.get(Integer.valueOf(idx));
-        return getPoint(idxLocal.intValue());
     }
 
     @Override
@@ -142,24 +137,5 @@ public class DataCache_Channel_CAN  extends DataCache_ChannelBasePointBased {
         return signal.max;
     }
 
-    @Override
-    public int getIdxLess(int ptIdx) {
-        Integer result = messages.index.floorKey(Integer.valueOf(ptIdx));
-        if (result == null)
-            return -1;
-        else
-            return result.intValue();
-    }
-
-    @Override
-    public int getIdxGreater(int ptIdx) {
-        Integer result = messages.index.ceilingKey(Integer.valueOf(ptIdx));
-        if (result == null)
-            return -1;
-        else
-            return result.intValue();
-    }
-
     DbcSignal signal;
-    CANMessageIndexed messages;
 }

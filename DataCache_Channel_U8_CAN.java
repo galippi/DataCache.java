@@ -1,10 +1,8 @@
 package dataCache;
 
-import java.util.Vector;
-
 import lippiWare.blfHandler.CanMessage;
 
-public class DataCache_Channel_U8_CAN extends DataCache_ChannelBasePointBased {
+public class DataCache_Channel_U8_CAN extends DataCache_Channel_CAN_Base {
     public DataCache_Channel_U8_CAN(DataCache_FileBase _parent,
                                     String _chName,
                                     CANMessageIndexed ms,
@@ -92,6 +90,5 @@ public class DataCache_Channel_U8_CAN extends DataCache_ChannelBasePointBased {
     }
 
     String chName;
-    CANMessageIndexed messages;
     int byteIdx;
 }
