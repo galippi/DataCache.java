@@ -26,7 +26,8 @@ class CANMessageIndexed {
      * @throws Exception if the message is not for this set (different ID or different CAN channel)
      */
     public CanMessage getGlobal(int idx) throws Exception {
-        return messages.get(index.get(Integer.valueOf(idx)));
+        Integer idxLocal = index.get(Integer.valueOf(idx));
+        return messages.get(idxLocal);
     }
 
     /**
