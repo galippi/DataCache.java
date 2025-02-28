@@ -46,11 +46,16 @@ public class DataCache_Channel_CAN  extends DataCache_ChannelBasePointBased {
     public DataPointBase getPoint(int pointIdx) {
         CanMessage msg = messages.get(pointIdx);
         long rawVal = extractRawVal(msg);
-        //if ((rawVal < signal.minRaw) || (rawVal > signal.maxRaw))
+        //if ((rawVal < signal.minRaw) || (rawVal > signal.maxRaw)) - TODO
         //    throw new Error("CAN signal is out of double range!");
         double val = (rawVal * signal.factor) + signal.offset;
         DataPointBase pt = new DataPointDouble(msg.getTime(), val);
         return pt;
+    }
+
+    public DataPointBase getPointGlobal(int idx) {
+        Integer idxLocal = messages.index.get(Integer.valueOf(idx));
+        return getPoint(idxLocal.intValue());
     }
 
     @Override
@@ -94,7 +99,17 @@ public class DataCache_Channel_CAN  extends DataCache_ChannelBasePointBased {
     public double getDoubleGlobal(int idx) throws Exception {
         CanMessage msg = messages.getGlobal(idx);
         long rawVal = extractRawVal(msg);
-        if ((rawVal < signal.minRaw) || (rawVal > signal.maxRaw))
+        if ((rawVal < signal.minScaledRaw) || (rawVal > signal.maxScaledRaw))
+            throw new Exception("CAN signal is out of double range!");
+        double val = (rawVal * signal.factor) + signal.offset;
+        return val;
+    }
+
+    @Override
+    public double getDoubleGlobal(int idx, double t, double dt) throws Exception {
+        CanMessage msg = messages.getGlobal(idx);
+        long rawVal = extractRawVal(msg);
+        if ((rawVal < signal.minScaledRaw) || (rawVal > signal.maxScaledRaw))
             throw new Exception("CAN signal is out of double range!");
         double val = (rawVal * signal.factor) + signal.offset;
         return val;
@@ -125,6 +140,24 @@ public class DataCache_Channel_CAN  extends DataCache_ChannelBasePointBased {
     @Override
     public double getDoubleMax() throws Exception {
         return signal.max;
+    }
+
+    @Override
+    public int getIdxLess(int ptIdx) {
+        Integer result = messages.index.floorKey(Integer.valueOf(ptIdx));
+        if (result == null)
+            return -1;
+        else
+            return result.intValue();
+    }
+
+    @Override
+    public int getIdxGreater(int ptIdx) {
+        Integer result = messages.index.ceilingKey(Integer.valueOf(ptIdx));
+        if (result == null)
+            return -1;
+        else
+            return result.intValue();
     }
 
     DbcSignal signal;

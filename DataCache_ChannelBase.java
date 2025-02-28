@@ -119,4 +119,24 @@ abstract public class DataCache_ChannelBase
     public int getPointIdx(int x, int cursorDistance) {
         throw new Error("Invalid call!");
     }
+
+    public double getDoubleGlobal(int idx, double t, double dt) throws Exception {
+        throw new Error("Not yet implemented");
+    }
+
+    public int getIdxLess(int ptIdx) {
+        throw new Error("Not yet implemented");
+    }
+
+    public int getIdxGreater(int ptIdx) {
+        throw new Error("Not yet implemented");
+    }
+
+    public DataPointBase getPoint(int idx) {
+        throw new Error("Not yet implemented");
+    }
+
+    public DataPointBase getPointGlobal(int idxLess) {
+        throw new Error("Not yet implemented");
+    }
 }

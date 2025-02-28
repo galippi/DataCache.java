@@ -5,4 +5,8 @@ public abstract class DataPointBase {
     public double t;
     public abstract int getInt();
     public abstract double getDouble();
+
+    public String getString() {
+        throw new Error("Not yet implemented!");
+    }
 }
